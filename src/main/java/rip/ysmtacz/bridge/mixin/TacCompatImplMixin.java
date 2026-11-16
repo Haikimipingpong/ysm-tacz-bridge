@@ -22,9 +22,9 @@ import rip.ysmtacz.bridge.TacBindings;
 import rip.ysmtacz.bridge.YsmTaczBridge;
 
 /**
- * 官方 2.6.5.9 的 Fabric 构建里，TaCZ 兼容层全部是空实现
+ * 2.6.5.9 的 Fabric 构建里，TaCZ 兼容层全部是空实现
  * （isLoaded 恒 false、handleXxx 恒 null）。这里用 mixin 把真正的实现接上去，
- * 不需要改官方 jar。
+ * 不需要改原 jar。
  */
 @Mixin(targets = "rip.ysm.compat.gun.tacz.fabric.TacCompatImpl")
 public class TacCompatImplMixin {
@@ -51,7 +51,7 @@ public class TacCompatImplMixin {
 
     /**
      * 模型专属持枪动作（{@code tac:hold$tacz:ak47} 这种带 $ 的命名）靠 ConditionTAC 匹配，
-     * 而 ConditionTAC 又是通过 TacCompat.getGunTexture(stack) 拿枪 ID 的 —— 官方这里也返回 null，
+     * 而 ConditionTAC 又是通过 TacCompat.getGunTexture(stack) 拿枪 ID 的 —— 原构建这里也返回 null，
      * 所以专属动作永远匹配不到。这里补上真实的枪 ID。
      */
     @Inject(method = "getGunTexture", at = @At("HEAD"), cancellable = true)
@@ -66,7 +66,7 @@ public class TacCompatImplMixin {
 
     /**
      * 本机玩家持枪时，TaCZ 的枪口火焰/抛壳需要标记为「自己」，否则第三人称下会被当作他人而不绘制。
-     * 官方这两个方法也是空的，所以模型持枪开枪没有火光。
+     * 原构建这两个方法也是空的，所以模型持枪开枪没有火光。
      */
     @Inject(method = "handleGunSound", at = @At("HEAD"), cancellable = true)
     private static void ysmTaczBridge$handleGunSound(LivingEntity entity, ItemStack stack, CallbackInfo ci) {

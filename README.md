@@ -2,24 +2,26 @@
 
 > ## 🔗 配套仓库：**[OpenYSM 1.21.11 / Fabric 移植版 →](https://github.com/Haikimipingpong/openysm-1.21.11-fabric)**
 > 想要把 YSM 搬上 **Minecraft 1.21.11 + Fabric**、并且 TaCZ 联动直接内置的版本？看上面那个仓库。
-> 本仓库只做一件事：给**官方 2.6.5.9 jar** 打 TaCZ 补丁，**两者不要同时装**。
+> 本仓库只做一件事：给**公开发布的 2.6.5.9 jar** 打 TaCZ 补丁，**两者不要同时装**。
 
 中文 | [English](#english)
 
 给 **YSM / OpenYSM 的 Fabric 构建**补上 TaCZ（Timeless & Classics Zero）联动的桥接模组。
-不改官方 jar：官方把 TaCZ 兼容层留成了空实现，本模组用 mixin 在原位把它换掉。
+不改原 jar：那个构建把 TaCZ 兼容层留成了空实现，本模组用 mixin 在原位把它换掉。
 
 ## 先说明几件事
 
 - **本项目是非官方的**，与 YSM / OpenYSM 的作者、与 TaCZ 的作者都没有隶属关系。
-- **上游 OpenYSM 只发布过 Minecraft 1.20.1 / Forge**，官方并没有 Fabric 版的 TaCZ 联动；
+- **上游 OpenYSM 只发布过 Minecraft 1.20.1 / Forge**，从未发布 Fabric 版本，更没有 Fabric 版的 TaCZ 联动；
   本项目做的是把上游 Forge 侧那套逻辑搬到 Fabric 上，让 Fabric 构建也能用。
+- 下文的 `openysm-fabric-2.6.5.9` 一律指**社区流传的 Fabric 构建**，它**不是**上游发布的版本，
+  我们也不知道它是谁做的；这里不使用「官方版」这种说法。
 - 本项目以 **MIT** 发布（见 [LICENSE](LICENSE)）。其中动画状态机逻辑**派生自 OpenYSM 上游
   Forge 实现**（`TacAnimHandler` 等，MIT，版权归 OpenYSM）；mixin、事件、molang 绑定是本项目新增的。
 
 ## 为什么需要它
 
-官方 `openysm-fabric-2.6.5.9` 的 TaCZ 兼容层是空实现：
+`openysm-fabric-2.6.5.9`（社区构建，并非上游发布）的 TaCZ 兼容层是空实现：
 
 ```java
 rip.ysm.compat.gun.tacz.fabric.TacCompatImpl
@@ -48,7 +50,7 @@ rip.ysm.compat.gun.tacz.fabric.TacCompatImpl
 ## 依赖
 
 - Minecraft **1.21.11** / Fabric Loader ≥ 0.19 / Java 21 / Fabric API
-- 官方 `yes_steve_model` 的 Fabric 构建（针对 **2.6.5.9** 编写，要求 ≥ 2.6.5）
+- `yes_steve_model` 的 Fabric 构建，针对 **2.6.5.9** 编写、要求 ≥ 2.6.5（该构建并非上游发布）
 - TaCZ Refabricated 1.21.11
 
 ## 构建
@@ -71,8 +73,8 @@ gradle build
 ### 1.1.0：模型专属持枪动作
 
 YSM 的专属动作命名是 `前缀$枪ID`，例如 `tac:hold$tacz:minigun`。
-匹配由官方 `ConditionTAC` 完成，而它依赖 `TacCompat.getGunTexture(stack)` 取枪 ID
-——这个方法在官方 jar 里同样是空实现（返回 `null`），所以专属动作永远命中不了，
+匹配由 `ConditionTAC` 完成，而它依赖 `TacCompat.getGunTexture(stack)` 取枪 ID
+——这个方法在原 jar 里同样是空实现（返回 `null`），所以专属动作永远命中不了，
 所有模型都只能落到通用的 `tac:hold:rifle` / `tac:hold:pistol`。
 
 1.1.0 补上了 `getGunTexture`：
@@ -85,7 +87,7 @@ YSM 的专属动作命名是 `前缀$枪ID`，例如 `tac:hold$tacz:minigun`。
 
 ### 1.2.0：恢复枪口火光 / 抛壳
 
-官方还有两个空实现：`TacCompatImpl.handleGunSound(LivingEntity, ItemStack)` 与
+那个构建还有两个空实现：`TacCompatImpl.handleGunSound(LivingEntity, ItemStack)` 与
 `TacCompatImpl.handleItemSound(ItemStack)`。
 
 TaCZ 的 `MuzzleFlashRender.extract()` 里判断是：
@@ -99,7 +101,7 @@ if (!IrisCompat.isRenderShadow() && isSelf) {
 
 `isSelf` 只有在「渲染本机玩家手持的枪」时才该为 true，否则第三人称下会被当成「别人的枪」而不画。
 OpenYSM 的 `CustomPlayerItemInHandLayer` 会在渲染主手物品前后分别调用这两个方法，
-官方实现是空的 → `isSelf` 永远是 false → **模型持枪开火没有火光**。
+原实现是空的 → `isSelf` 永远是 false → **模型持枪开火没有火光**。
 
 1.2.0 补上：
 
@@ -133,7 +135,7 @@ YSM 绕开了原版那一层，所以只能用 `handleGunSound` 复刻。
 ## English
 
 A mixin bridge that adds **TaCZ** support to the **Fabric** build of YSM / OpenYSM — without
-modifying the official jar. The official build ships an empty TaCZ compatibility layer
+modifying the downloaded jar. That 2.6.5.9 Fabric build (not published upstream) ships an empty TaCZ compatibility layer
 (`isLoaded()` returns false, all handlers return null), so every model falls back to walking
 animations and the `tac:*` molang variables stay at their defaults.
 
@@ -142,5 +144,5 @@ upstream Forge-side logic to Fabric. MIT licensed — the animation-state logic 
 upstream OpenYSM (MIT, © OpenYSM); the mixin, events and molang bindings are new.
 
 **Companion repository:** [OpenYSM 1.21.11 / Fabric port](https://github.com/Haikimipingpong/openysm-1.21.11-fabric) —
-the full port with TaCZ support built in. Use this bridge for the official jar, or that port for
+the full port with TaCZ support built in. Use this bridge with the published 2.6.5.9 jar, or that port for
 1.21.11/Fabric — not both.
