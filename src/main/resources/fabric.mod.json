@@ -3,7 +3,7 @@
   "id": "ysm_tacz_bridge",
   "version": "${version}",
   "name": "YSM x TaCZ Bridge",
-  "description": "让 OpenYSM (Yes Steve Model) 的 Fabric 构建（非上游发布）具备 TaCZ 联动：tac_* molang 变量、持枪/瞄准/开火/换弹/近战动画状态。2.6.5.9 的 Fabric 构建里这些方法是空实现，本模组用 mixin 接管。",
+  "description": "让 OpenYSM (Yes Steve Model) 的 Fabric 构建（非上游发布）具备 TaCZ 联动：tac_* molang 变量、持枪/瞄准/开火/换弹/近战动画状态。2.6.5.9 的 Fabric 构建里这些方法是空实现，本模组用 mixin 接管。面向 macOS 上的 1.21.11 玩家，不维护。",
   "authors": [
     "Haikimipingpong"
   ],

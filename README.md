@@ -1,5 +1,11 @@
 # YSM x TaCZ Bridge
 
+> ## ⚠️ 维护状态：**不维护 / 极少维护**
+> 本仓库是那份[移植版](https://github.com/Haikimipingpong/openysm-1.21.11-fabric)的配套件，
+> 同样是给 **macOS 上的 Minecraft 1.21.11 + Fabric 玩家**用的：让 YSM 这个替代品能适配 TaCZ。
+> **作者不打算持续维护**——不保证跟进 TaCZ / YSM 的新版本，不保证修 bug、不保证回 issue。
+> 能用就用；不能用就 fork 走。
+
 > ## 🔗 配套仓库：**[OpenYSM 1.21.11 / Fabric 移植版 →](https://github.com/Haikimipingpong/openysm-1.21.11-fabric)**
 > 想要把 YSM 搬上 **Minecraft 1.21.11 + Fabric**、并且 TaCZ 联动直接内置的版本？看上面那个仓库。
 > 本仓库只做一件事：给**公开发布的 2.6.5.9 jar** 打 TaCZ 补丁，**两者不要同时装**。
@@ -12,6 +18,8 @@
 ## 先说明几件事
 
 - **本项目是非官方的**，与 YSM / OpenYSM 的作者、与 TaCZ 的作者都没有隶属关系。
+- **定位**：给 **macOS** 上跑 **Minecraft 1.21.11 + Fabric** 的玩家，把 YSM 这个替代品接上 TaCZ
+  （持枪 / 瞄准 / 开火 / 换弹 / 近战动作与 `tac_*` 变量）。**不维护 / 极少维护**，只做自用与存档。
 - **上游 OpenYSM 只发布过 Minecraft 1.20.1 / Forge**，从未发布 Fabric 版本，更没有 Fabric 版的 TaCZ 联动；
   本项目做的是把上游 Forge 侧那套逻辑搬到 Fabric 上，让 Fabric 构建也能用。
 - 下文的 `openysm-fabric-2.6.5.9` 一律指**社区流传的 Fabric 构建**，它**不是**上游发布的版本，
@@ -140,7 +148,13 @@ modifying the downloaded jar. That 2.6.5.9 Fabric build (not published upstream)
 animations and the `tac:*` molang variables stay at their defaults.
 
 Unofficial. Upstream OpenYSM ships **Minecraft 1.20.1 / Forge only**; this project ports the
-upstream Forge-side logic to Fabric. MIT licensed — the animation-state logic is derived from
+upstream Forge-side logic to Fabric.
+
+**Who this is for / maintenance:** the companion piece to that port — for **macOS players on
+Minecraft 1.21.11 + Fabric** who want YSM with TaCZ. **Unmaintained / barely maintained**: no
+tracking of new TaCZ or YSM versions, no support. Fork it if you need it to last.
+
+MIT licensed — the animation-state logic is derived from
 upstream OpenYSM (MIT, © OpenYSM); the mixin, events and molang bindings are new.
 
 **Companion repository:** [OpenYSM 1.21.11 / Fabric port](https://github.com/Haikimipingpong/openysm-1.21.11-fabric) —
