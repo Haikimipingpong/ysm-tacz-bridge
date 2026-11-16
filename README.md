@@ -170,5 +170,18 @@ MIT licensed — the animation-state logic is derived from
 upstream OpenYSM (MIT, © OpenYSM); the mixin, events and molang bindings are new.
 
 **Companion repository:** [OpenYSM 1.21.11 / Fabric port](https://github.com/Haikimipingpong/openysm-1.21.11-fabric) —
-the full port with TaCZ support built in. Use this bridge with the published 2.6.5.9 jar, or that port for
-1.21.11/Fabric — not both.
+install that first, then this bridge: on its own it patches nothing and does nothing.
+
+---
+
+## 后记：这玩意儿到底是怎么来的
+
+正经版本在上面，不正经的版本是这样：
+
+1. 我从一个 **R-18 整合包**里把这份 openysm 挖了出来。代码质量嘛……一座结构完整、能跑、但多看一眼掉头发的屎山。
+2. 我把整合包里所有 R-18 模组全剔了，只留它自己用（毕竟模型好看）。
+3. 用着用着发现：**它不支持 TaCZ。**
+4. 我一怒之下……做了这个。
+
+所以这不是什么精心设计的兼容层，是**怒气值溢出**的产物。能用就行，别问架构。
+（顺带一提：模型动画好不好看，跟代码质量毫无关系，这份就是活证据。）
