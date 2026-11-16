@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "ysm_tacz_bridge",
+  "version": "${version}",
+  "name": "YSM x TaCZ Bridge",
+  "description": "让官方 OpenYSM (Yes Steve Model) 的 Fabric 构建具备 TaCZ 联动：tac_* molang 变量、持枪/瞄准/开火/换弹/近战动画状态。官方发布物里这些方法是空实现，本模组用 mixin 接管。",
+  "authors": [
+    "Haikimipingpong"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "rip.ysmtacz.bridge.YsmTaczBridge"
+    ]
+  },
+  "mixins": [
+    "ysm_tacz_bridge.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*",
+    "yes_steve_model": ">=2.6.5",
+    "tacz": "*"
+  },
+  "contact": {
+    "homepage": "https://github.com/Haikimipingpong/ysm-tacz-bridge",
+    "issues": "https://github.com/Haikimipingpong/ysm-tacz-bridge/issues"
+  }
+}

@@ -1,0 +1,38 @@
+plugins {
+    id 'fabric-loom' version '1.19.4'
+}
+
+version = "${mod_version}-fabric"
+group = project.maven_group
+
+base { archivesName = project.archives_name }
+
+repositories {
+    maven { name = 'AliyunCentral'; url = 'https://maven.aliyun.com/repository/public' }
+    maven { name = 'Fabric'; url = 'https://maven.fabricmc.net/' }
+    flatDir { dirs 'libs' }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.officialMojangMappings()
+
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+    // 官方 OpenYSM 2.6.5.9（只用于编译期类型解析，不打包）
+    modCompileOnly files('libs/openysm-2.6.5.9.jar')
+    // TaCZ Refabricated 1.21.11（同样只编译期）
+    modCompileOnly files('libs/TACZ-Refabricated-1.21.11.jar')
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") { expand "version": project.version }
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = "UTF-8" }
