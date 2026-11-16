@@ -6,14 +6,18 @@
 > **作者不打算持续维护**——不保证跟进 TaCZ / YSM 的新版本，不保证修 bug、不保证回 issue。
 > 能用就用；不能用就 fork 走。
 
+> ## ⚠️ 这是配套件：**单独加载不会有任何效果**
+> 本模组只给**配套仓库里的那份 YSM**（[OpenYSM 1.21.11 / Fabric 移植版](https://github.com/Haikimipingpong/openysm-1.21.11-fabric)）
+> 做 TaCZ 适配。没有那份 YSM，它没有可打补丁的对象，**装进去等于没装**。
+> 不要把它单独丢进一个没有 YSM 的整合包，然后来问为什么没效果。
+
 > ## 🔗 配套仓库：**[OpenYSM 1.21.11 / Fabric 移植版 →](https://github.com/Haikimipingpong/openysm-1.21.11-fabric)**
-> 想要把 YSM 搬上 **Minecraft 1.21.11 + Fabric**、并且 TaCZ 联动直接内置的版本？看上面那个仓库。
-> 本仓库只做一件事：给**公开发布的 2.6.5.9 jar** 打 TaCZ 补丁，**两者不要同时装**。
+> 先装那个（1.21.11 + Fabric 的 YSM 替代品），再装本模组，TaCZ 联动才完整。
 
 中文 | [English](#english)
 
-给 **YSM / OpenYSM 的 Fabric 构建**补上 TaCZ（Timeless & Classics Zero）联动的桥接模组。
-不改原 jar：那个构建把 TaCZ 兼容层留成了空实现，本模组用 mixin 在原位把它换掉。
+给**配套仓库里的那份 YSM**补上 TaCZ（Timeless & Classics Zero）联动的桥接模组。
+它不改 YSM 的 jar，而是用 mixin 把 TaCZ 兼容层缺的东西接上；**脱离 YSM 单独存在时不做任何事**。
 
 ## 先说明几件事
 
@@ -29,7 +33,13 @@
 
 ## 为什么需要它
 
-`openysm-fabric-2.6.5.9`（社区构建，并非上游发布）的 TaCZ 兼容层是空实现：
+YSM 这一系的 TaCZ 兼容层都有缺口，本模组就是补这些缺口：
+
+- 公开发布的 `openysm-fabric-2.6.5.9`（社区构建，并非上游发布）里，兼容层基本是空壳；
+- 配套的移植版有基础实现（持枪 / 瞄准状态能跑），但 `handleItemSound` 会立刻把 `isSelf` 复位，
+  **额外枪包**（延迟提交渲染的那类）的枪口火光 / 抛壳就画不出来。
+
+2.6.5.9 那份的情况长这样：
 
 ```java
 rip.ysm.compat.gun.tacz.fabric.TacCompatImpl
@@ -58,7 +68,7 @@ rip.ysm.compat.gun.tacz.fabric.TacCompatImpl
 ## 依赖
 
 - Minecraft **1.21.11** / Fabric Loader ≥ 0.19 / Java 21 / Fabric API
-- `yes_steve_model` 的 Fabric 构建，针对 **2.6.5.9** 编写、要求 ≥ 2.6.5（该构建并非上游发布）
+- YSM 的 Fabric 构建：**配套的移植版**（推荐），或公开发布的 `2.6.5.9` 构建（要求 ≥ 2.6.5）
 - TaCZ Refabricated 1.21.11
 
 ## 构建
@@ -143,7 +153,9 @@ YSM 绕开了原版那一层，所以只能用 `handleGunSound` 复刻。
 ## English
 
 A mixin bridge that adds **TaCZ** support to the **Fabric** build of YSM / OpenYSM — without
-modifying the downloaded jar. That 2.6.5.9 Fabric build (not published upstream) ships an empty TaCZ compatibility layer
+modifying the YSM jar. **Companion only:** it patches the YSM from the
+[companion repository](https://github.com/Haikimipingpong/openysm-1.21.11-fabric); loaded on its
+own it does nothing at all. That 2.6.5.9 Fabric build (not published upstream) ships an empty TaCZ compatibility layer
 (`isLoaded()` returns false, all handlers return null), so every model falls back to walking
 animations and the `tac:*` molang variables stay at their defaults.
 
