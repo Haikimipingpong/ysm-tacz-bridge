@@ -1,5 +1,9 @@
 # YSM x TaCZ Bridge
 
+> ## 🔗 配套仓库：**[OpenYSM 1.21.11 / Fabric 移植版 →](https://github.com/Haikimipingpong/openysm-1.21.11-fabric)**
+> 想要把 YSM 搬上 **Minecraft 1.21.11 + Fabric**、并且 TaCZ 联动直接内置的版本？看上面那个仓库。
+> 本仓库只做一件事：给**官方 2.6.5.9 jar** 打 TaCZ 补丁，**两者不要同时装**。
+
 中文 | [English](#english)
 
 给 **YSM / OpenYSM 的 Fabric 构建**补上 TaCZ（Timeless & Classics Zero）联动的桥接模组。
@@ -136,3 +140,7 @@ animations and the `tac:*` molang variables stay at their defaults.
 Unofficial. Upstream OpenYSM ships **Minecraft 1.20.1 / Forge only**; this project ports the
 upstream Forge-side logic to Fabric. MIT licensed — the animation-state logic is derived from
 upstream OpenYSM (MIT, © OpenYSM); the mixin, events and molang bindings are new.
+
+**Companion repository:** [OpenYSM 1.21.11 / Fabric port](https://github.com/Haikimipingpong/openysm-1.21.11-fabric) —
+the full port with TaCZ support built in. Use this bridge for the official jar, or that port for
+1.21.11/Fabric — not both.
